@@ -1,22 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.ComponentModel.DataAnnotations;
 using WebAPI_Passenger.Util;
 
 namespace WebAPI_Passenger.Models {
     public class Passenger {
 
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
-        public string Id { get; set; }
-        public string Cpf { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Gender { get; set; }
-        public DateTime LastPurchase { get; set; }
-        public DateTime DateRegister { get; set; }
-        public string Situation { get; set; }
 
-     
+        [Required(ErrorMessage = "CPF Precisa de 11 Digitos...")]
+        [StringLength(14)]
+        public string Cpf { get; set; }
+        [Required(ErrorMessage ="Nome é Campo Obrigatorio!")]
+        [StringLength(30)]
+        public string Name { get; set; }
+        public char? Gender { get; set; }
+        [StringLength(14)]
+        public string Phone { get; set; }
+        public DateTime DtBirth { get; set; }
+        public DateTime DtRegister { get; set; }
+        public string Status { get; set; }
+
+
     }
 }
