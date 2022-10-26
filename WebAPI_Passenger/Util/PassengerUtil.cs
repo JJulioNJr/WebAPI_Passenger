@@ -1,4 +1,6 @@
-﻿namespace WebAPI_Passenger.Util {
+﻿using System;
+
+namespace WebAPI_Passenger.Util {
     public class PassengerUtil {
 
         #region Validador de CPF
@@ -37,5 +39,58 @@
             return cpf.EndsWith(digito);
         }
         #endregion
+
+
+        public static string MaskCPF(string cpf) {
+            return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
+        }
+
+        public static string MaskPhone(string phone) {
+            //return Convert.ToInt64(phone).ToString(@"(00)\.00000\-0000");
+            return Convert.ToInt64(phone).ToString(@"(00)00000-0000");
+        }
+
+        public static string MaskZipCode(string zip) {
+            return Convert.ToUInt32(zip).ToString(@"00000\-000");
+        }
+
+        public static DateTime MaskDtBirth(DateTime birth) {
+
+            var dt = Convert.ToUInt32(birth).ToString(@"0000-00-00");
+
+            return DateTime.Parse(dt);
+
+            //return birth.ToShortDateString();
+        }
+
+        public static string MaskDtRegister(string register) {
+            return Convert.ToUInt32(register).ToString(@"00\00\0000"+"00:\00");
+        }
+        public bool ValidateBirth(DateTime birth) {
+
+            if (birth > DateTime.Now) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+        public bool ValidateAge(DateTime birth) {
+
+            var date = DateTime.Now-birth;
+            var idade=int.Parse(date.ToString());
+
+            if ( idade<18) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+      
+
+
     }
 }
